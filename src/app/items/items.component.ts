@@ -19,10 +19,8 @@ export class ItemsComponent implements OnInit {
     const items = this.items.map(item => item.id);
     const id = Math.max(...items) + 1;
 
-    this.items.push({
-      id: id,
-      name,
-    });
+    // Add to list
+    this.items.push({ id, name });
 
     this.newItem = '';
   }
