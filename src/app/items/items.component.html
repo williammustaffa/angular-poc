@@ -1,6 +1,15 @@
-<p>items works!</p>
-<ul>
-  <li *ngFor="let item of items">
-    <span class="badge">{{item.id}}. <input [(ngModel)]="item.name" placeholder="name"/></span>
-  </li>
-</ul>
+<div>
+  <ul>
+    <li *ngFor="let item of items">
+      <span class="badge">{{item.id}}. {{item.name}}</span>&nbsp;
+      <button (click)="removeItem(item)">Remove</button>
+    </li>
+  </ul>
+  <div>
+    <input [(ngModel)]="newItem" placeholder="Item name" />
+    <button
+      (click)="addItem(newItem)"
+      [disabled]="!newItem.length"
+    >Add item</button>
+  </div>
+</div>
