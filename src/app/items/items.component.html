@@ -1,0 +1,6 @@
+<p>items works!</p>
+<ul>
+  <li *ngFor="let item of items">
+    <span class="badge">{{item.id}}. <input [(ngModel)]="item.name" placeholder="name"/></span>
+  </li>
+</ul>
