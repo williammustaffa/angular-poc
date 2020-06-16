@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../item';
+import { ITEMS } from '../mock-items';
+import { ItemService } from '../item.service';
 
 @Component({
   selector: 'app-items',
@@ -7,22 +9,22 @@ import { Item } from '../item';
   styleUrls: ['./items.component.less']
 })
 export class ItemsComponent implements OnInit {
-  // List of items to be managed
-  items: Item[] = [
-    { id: 1, name: 'test' },
-    { id: 2, name: 'test 2' },
-    { id: 3, name: 'test 3' },
-  ];
-
-  // New item to be added
+  items: Item[];
   newItem: string = "";
-
-  // Selected item
   selectedItem: Item;
+
+  constructor(private itemService: ItemService) {
+
+  }
+
+  getItems(): void {
+    this.itemService.getItems()
+      .subscribe(items => this.items = items);
+  }
 
   addItem(name: string): void {
     const items = this.items.map(item => item.id);
-    const id = Math.max(...items) + 1;
+    const id = Math.max(0, ...items) + 1;
 
     // Add to list
     this.items.push({ id, name });
@@ -38,9 +40,7 @@ export class ItemsComponent implements OnInit {
     this.selectedItem = targetItem;
   }
 
-  constructor() { }
-
   ngOnInit(): void {
+    this.getItems();
   }
-
 }
