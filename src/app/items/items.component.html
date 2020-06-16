@@ -1,15 +1,24 @@
 <div>
-  <ul>
-    <li *ngFor="let item of items">
-      <span class="badge">{{item.id}}. {{item.name}}</span>&nbsp;
+  <ul class="list">
+    <li
+      *ngFor="let item of items"
+      (click)="selectItem(item)"
+      [class.selected]="item === selectedItem"
+    >
+      <label class="badge" (click)="selectItem(item)">
+        <input type="radio" [checked]="item === selectedItem" />
+        <span>{{item.id}}. {{item.name}}</span>
+      </label>&nbsp;
       <button (click)="removeItem(item)">Remove</button>
     </li>
   </ul>
-  <div>
-    <input [(ngModel)]="newItem" placeholder="Item name" />
+  <div class="form-group">
+    <input [(ngModel)]="newItem" placeholder="Item name" type="text"/>
     <button
       (click)="addItem(newItem)"
       [disabled]="!newItem.length"
     >Add item</button>
   </div>
+
+  <app-item-detail [item]="selectedItem"></app-item-detail>
 </div>
