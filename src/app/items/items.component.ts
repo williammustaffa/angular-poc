@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from '../item';
 import { ITEMS } from '../mock-items';
 import { ItemService } from '../item.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-items',
@@ -13,7 +14,10 @@ export class ItemsComponent implements OnInit {
   newItem: string = "";
   selectedItem: Item;
 
-  constructor(private itemService: ItemService) {
+  constructor(
+    private itemService: ItemService,
+    private messageService: MessageService
+  ) {
 
   }
 
@@ -29,7 +33,11 @@ export class ItemsComponent implements OnInit {
     // Add to list
     this.items.push({ id, name });
 
+    // Reset current input
     this.newItem = '';
+
+    // Send message
+    this.messageService.add(`ItemService: Added item id=${id}`);
   }
 
   removeItem(targetItem: Item) {
